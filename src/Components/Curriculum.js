@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import CurriculumList from './CurriculumList.js';
 import DocumentDetails from './DocumentDetails.js';
 

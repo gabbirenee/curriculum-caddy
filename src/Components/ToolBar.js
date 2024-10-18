@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 
 class ToolBar extends React.Component {
   render() {

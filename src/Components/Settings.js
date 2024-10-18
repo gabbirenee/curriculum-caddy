@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import Curriculum from './Curriculum.js';
 
 class Settings extends React.Component {

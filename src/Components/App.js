@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../Styles/App.css';
 import Conversation from './Conversation.js';
 import Settings from './Settings.js'; 
 

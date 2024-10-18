@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 
 class DocumentDetails extends React.Component {
   render() {

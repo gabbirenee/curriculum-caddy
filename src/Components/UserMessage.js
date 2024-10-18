@@ -1,11 +1,10 @@
 import React from 'react';
-import '../App.css';
 
 class UserMessage extends React.Component {
   render() {
     return (
-      <div className="UserMessage">
-        <p>User Message</p>
+      <div className='chat-message-user' >
+        <p>{this.props.text}</p>
       </div>
     );
   };

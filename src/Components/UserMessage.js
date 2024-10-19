@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-function UserMessage ({text}) {
+function UserMessage ({text, botResponse}) {
+  useEffect(() => {
+    console.log('component did mount')
+    botResponse()
+  }, []);
+
   return (
     <div className='chat-message-user' >
       <p>{text}</p>

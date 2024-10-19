@@ -22,9 +22,13 @@ function ChatWindow () {
   // When the User Clicks Send
   const handleSend = () => {
     if (input.trim()) { // if there is actual input in the field
-      setMessages([...messages, { sender: 'User', text: input }, { sender: 'Bot', text: 'Bot Message!' }]);   // update the state to include the messages
+      setMessages([...messages, { sender: 'User', text: input }]);   // update the state to include the messages
       setInput(''); // reset the input
     }
+  };
+
+  const botResponse = () => {
+    setMessages([...messages, { sender: 'Bot', text: 'Bot Message!' }]);
   };
 
   // when 'enter' is pressed, do the same thing that you would when the submit button is clicked
@@ -40,7 +44,7 @@ function ChatWindow () {
         {messages.map((message, index) => ( // generate the messages by looping through the state
           <div key={index} >
             {message.sender === 'User' ? (
-              <UserMessage text={message.text} />   // generate the User message component if it is a user message
+              <UserMessage text={message.text} botResponse={botResponse} />   // generate the User message component if it is a user message
             ) : (
               <BotMessage text={message.text} />  // generate the bot message if it is a bot message
             )}

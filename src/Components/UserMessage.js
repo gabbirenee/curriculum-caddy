@@ -1,13 +1,11 @@
 import React from 'react';
 
-class UserMessage extends React.Component {
-  render() {
-    return (
-      <div className='chat-message-user' >
-        <p>{this.props.text}</p>
-      </div>
-    );
-  };
+function UserMessage ({text}) {
+  return (
+    <div className='chat-message-user' >
+      <p>{text}</p>
+    </div>
+  );
 }
 
 export default UserMessage;

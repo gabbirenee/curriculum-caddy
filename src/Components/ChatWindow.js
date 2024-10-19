@@ -10,7 +10,7 @@ import '../Styles/Chat.css';
 // import { byPrefixAndName } from '@awesome.me/kit-KIT_CODE/icons';
 
 
-const ChatWindow = () => {
+function ChatWindow () {
   // where the actual conversation text will be stoed
   const [messages, setMessages] = useState([
     { sender: 'Bot', text: 'Welcome to the chat!' },

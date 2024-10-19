@@ -4,8 +4,7 @@ import ChatWindow from './ChatWindow.js';
 
 function Conversation () {
   return (
-    <div className="Conversation">
-      <p>Conversation</p>
+    <div className="conversation">
       <ToolBar />
       <ChatWindow />
     </div>

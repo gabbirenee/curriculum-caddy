@@ -6,7 +6,6 @@ import Settings from './Settings.js';
 function App () {
   return (
     <div className="App">
-      <p>My App</p>
       <Conversation />
       <Settings />
     </div>

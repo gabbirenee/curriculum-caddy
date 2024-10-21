@@ -17,12 +17,12 @@
   width: 20%; 
   font-size: 20px; 
   font-weight: bold;
-  color: #9966CC;
+  color: var(--accent2);
 }
 
 .logo svg {
   margin-right: 5%; 
-  fill: #9966CC; 
+  fill: var(--accent2-hover); 
 }
 
 

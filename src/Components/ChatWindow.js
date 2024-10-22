@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BotMessage from './BotMessage.js';
 import UserMessage from './UserMessage.js';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import '../Styles/Conversation.css';
 
 function ChatWindow() {
@@ -15,17 +16,17 @@ function ChatWindow() {
   // Ref to indicate bottom of chat window
   const chatEndRef = useRef(null);
 
+  // Scroll to bottom whenever messages state changes
+    useEffect(() => {
+      scrollToBottom();
+    }, [messages]);
+
   // Scroll to bottom function
   const scrollToBottom = () => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  // Scroll to bottom whenever messages state changes
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   // When the User Clicks Send
   const handleSend = () => {
@@ -36,8 +37,23 @@ function ChatWindow() {
   };
 
   // this is passed down as a prop to the UserMessage component and is called when the component mounts.
-  const botResponse = () => {
-    setMessages([...messages, { sender: 'Bot', text: 'Bot Message!' }]);
+  // Gemini API
+  const botResponse = async (prompt) => {
+    try {
+      const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      // prompt = 'This is our conversation history: ' + messages.toString() + '. \n' + prompt
+      console.log(prompt)
+      const result = await model.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
+      setMessages([...messages, { sender: 'Bot', text: text }]);
+    }
+    catch(error) {
+      console.log(error)
+      setMessages([...messages, { sender: 'Bot', text: "I'm having some issues getting you an answer. Please try again later!" }]);
+    }
   };
 
   // when 'enter' is pressed, do the same thing that you would when the submit button is clicked

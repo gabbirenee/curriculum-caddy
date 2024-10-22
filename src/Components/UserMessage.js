@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 function UserMessage ({text, botResponse}) {
   useEffect(() => {
     console.log('component did mount')
-    botResponse()
+    botResponse(text)
   }, []);
 
   return (

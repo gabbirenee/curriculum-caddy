@@ -7,7 +7,7 @@ import '../Styles/Conversation.css';
 function ChatWindow() {
   // where the actual conversation text will be stored
   const [messages, setMessages] = useState([
-    { sender: 'Bot', text: 'Welcome to the chat!' },
+    { sender: 'Gemini', text: 'Welcome to the chat!' },
   ]);
 
   // tracking the input of the user
@@ -17,9 +17,9 @@ function ChatWindow() {
   const chatEndRef = useRef(null);
 
   // Scroll to bottom whenever messages state changes
-    useEffect(() => {
-      scrollToBottom();
-    }, [messages]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   // Scroll to bottom function
   const scrollToBottom = () => {
@@ -43,16 +43,21 @@ function ChatWindow() {
       const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      // prompt = 'This is our conversation history: ' + messages.toString() + '. \n' + prompt
+      // get all the messages that have been sent so far so that Gemini knows the conversation history
+      var convo = [...messages]
+      convo.pop()
+      convo = JSON.stringify(convo)
+
+      prompt = 'This is our conversation history: ' + convo + '. \nMy next prompt is: ' + prompt
       console.log(prompt)
       const result = await model.generateContent(prompt);
       const response = result.response;
-      const text = response.text();
-      setMessages([...messages, { sender: 'Bot', text: text }]);
+      const text = response.text();      
+      setMessages([...messages, { sender: 'Gemini', text: text }]);
     }
     catch(error) {
       console.log(error)
-      setMessages([...messages, { sender: 'Bot', text: "I'm having some issues getting you an answer. Please try again later!" }]);
+      setMessages([...messages, { sender: 'Gemini', text: "I'm having some issues getting you an answer. Please try again later!" }]);
     }
   };
 

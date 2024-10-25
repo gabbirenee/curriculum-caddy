@@ -21,6 +21,12 @@ function ChatWindow() {
     scrollToBottom();
   }, [messages]);
 
+  // function that returns the initial prompt; planning to allow the teachers to input additional information so this function will become more dynamic in the future
+  const initialPrompt = () => {
+    var prompt = "I am a middle school computer science student. You are my tutor. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If I try to ask a question about something not directly related to computer science or something innappropriate, redirect me and have me write another question."
+    return prompt
+  }
+
   // Scroll to bottom function
   const scrollToBottom = () => {
     if (chatEndRef.current) {
@@ -48,11 +54,13 @@ function ChatWindow() {
       convo.pop()
       convo = JSON.stringify(convo)
 
-      prompt = 'This is our conversation history: ' + convo + '. \nMy next prompt is: ' + prompt
+      var initial_prompt = initialPrompt()  // get initial prompt
+
+      prompt = initial_prompt + '\nThis is our conversation history: ' + convo + '. \nMy next prompt is: ' + prompt
       console.log(prompt)
-      const result = await model.generateContent(prompt);
-      const response = result.response;
-      const text = response.text();      
+      var result = await model.generateContent(prompt);
+      var response = result.response;
+      var text = response.text();      
       setMessages([...messages, { sender: 'Gemini', text: text }]);
     }
     catch(error) {

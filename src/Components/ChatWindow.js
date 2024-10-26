@@ -7,11 +7,14 @@ import '../Styles/Conversation.css';
 function ChatWindow() {
   // where the actual conversation text will be stored
   const [messages, setMessages] = useState([
-    { sender: 'Gemini', text: 'Welcome to the chat!' },
+    { sender: 'Ada', text: "Hi! I'm Ada, your Curriculum Caddy. What can I help you with?" },
   ]);
 
   // tracking the input of the user
   const [input, setInput] = useState('');
+
+  // indicates that the bot response is being worked on
+  const [isLoading, setIsLoading] = useState(false);
 
   // Ref to indicate bottom of chat window
   const chatEndRef = useRef(null);
@@ -19,11 +22,11 @@ function ChatWindow() {
   // Scroll to bottom whenever messages state changes
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
 
   // function that returns the initial prompt; planning to allow the teachers to input additional information so this function will become more dynamic in the future
   const initialPrompt = () => {
-    var prompt = "I am a middle school computer science student. You are my tutor. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If I try to ask a question about something not directly related to computer science or something innappropriate, redirect me and have me write another question."
+    var prompt = "I am a middle school computer science student named Gabbi. You are my tutor named Ada. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If it will help refine your response, ask follow-up questions to gauge my understanding of the topic. Be conversational and use examples that I understand or that are on topics I am interested in. Don't give me exact answers if helping with a homework problem. Instead, walk through similar examples. If I try to ask a question about something not directly related to computer science or something inappropriate, redirect me and have me write another question."
     return prompt
   }
 
@@ -46,6 +49,7 @@ function ChatWindow() {
   // Gemini API
   const botResponse = async (prompt) => {
     try {
+      setIsLoading(true);
       const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -60,12 +64,14 @@ function ChatWindow() {
       console.log(prompt)
       var result = await model.generateContent(prompt);
       var response = result.response;
-      var text = response.text();      
-      setMessages([...messages, { sender: 'Gemini', text: text }]);
+      var text = response.text();  
+      setIsLoading(false);    
+      setMessages([...messages, { sender: 'Ada', text: text }]);
     }
     catch(error) {
       console.log(error)
-      setMessages([...messages, { sender: 'Gemini', text: "I'm having some issues getting you an answer. Please try again later!" }]);
+      setIsLoading(false);
+      setMessages([...messages, { sender: 'Ada', text: "I'm having some issues getting you an answer. Please try again later!" }]);
     }
   };
 
@@ -88,7 +94,8 @@ function ChatWindow() {
             )}
           </div>
         ))}
-        {/* This empty div is the chat end reference point */}
+        {isLoading && <div className="loading-indicator">Ada is typing...</div>}
+        {/* This empty div represents the end of the chat */}
         <div ref={chatEndRef} />
       </div>
       <div className="chat-input-container">

@@ -148,3 +148,7 @@
 .send-button:hover .airplane {
   fill: #2d1e3c;
 }
+
+.loading-indicator {
+  color: #989898;
+}

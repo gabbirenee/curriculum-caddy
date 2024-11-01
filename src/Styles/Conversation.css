@@ -1,3 +1,7 @@
+* {
+  font-weight: normal; 
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -31,7 +35,7 @@ body {
   align-items: center;
   margin: 0 0 1.875rem 0.625rem; 
   font-size: 1.25rem; 
-  font-weight: bold;
+  /* font-weight: bold; */
   color: var(--accent2);
 }
 
@@ -130,7 +134,7 @@ body {
 .chat-message-user, .chat-message-bot {
   padding: 0.625rem 1rem;
   margin-bottom: 0.625rem;
-  max-width: 70%;
+  max-width: 55%;
   border-radius: 1.125rem;
   line-height: 1.5;
 }

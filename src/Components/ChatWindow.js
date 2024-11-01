@@ -30,6 +30,23 @@ function ChatWindow() {
     return prompt
   }
 
+  const summarize = async (initial_prompt) => {
+    const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    // get all the messages that have been sent so far so that Gemini knows the conversation history
+    var convo = [...messages]
+    convo.pop()
+    convo = JSON.stringify(convo)
+
+    var sum_prompt = `${initial_prompt}\nSummarize our conversation so far: ${convo}.`
+
+    var result = await model.generateContent(sum_prompt);
+    var response = result.response;
+    var text = response.text();  
+    return text
+  }
+
   // Scroll to bottom function
   const scrollToBottom = () => {
     if (chatEndRef.current) {
@@ -53,18 +70,15 @@ function ChatWindow() {
       const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      // get all the messages that have been sent so far so that Gemini knows the conversation history
-      var convo = [...messages]
-      convo.pop()
-      convo = JSON.stringify(convo)
-
       var initial_prompt = initialPrompt()  // get initial prompt
-
-      prompt = initial_prompt + '\nThis is our conversation history: ' + convo + '. \nMy next prompt is: ' + prompt
+      var summary = summarize(initial_prompt) // summarize conversation history
+      prompt = `${initial_prompt} This is a summary of our conversation so far: ${summary}\n My next prompt is: ${prompt}`  // put all the pieces Gemini needs together
       console.log(prompt)
+
       var result = await model.generateContent(prompt);
       var response = result.response;
       var text = response.text();  
+      console.log(text)
       setIsLoading(false);    
       setMessages([...messages, { sender: 'Ada', text: text }]);
     }

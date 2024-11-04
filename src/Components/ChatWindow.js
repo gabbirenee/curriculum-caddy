@@ -16,6 +16,9 @@ function ChatWindow() {
   // indicates that the bot response is being worked on
   const [isLoading, setIsLoading] = useState(false);
 
+  // the programming language that will be used in bot responses
+  const [prog_lang, setProgLang] = useState('python');
+
   // Ref to indicate bottom of chat window
   const chatEndRef = useRef(null);
 
@@ -26,7 +29,7 @@ function ChatWindow() {
 
   // function that returns the initial prompt; planning to allow the teachers to input additional information so this function will become more dynamic in the future
   const initialPrompt = () => {
-    var prompt = "I am a middle school computer science student named Gabbi. You are my tutor named Ada. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If it will help refine your response, ask follow-up questions to gauge my understanding of the topic. Be conversational and use examples that I understand or that are on topics I am interested in. Don't give me exact answers if helping with a homework problem. Instead, walk through similar examples. If I try to ask a question about something not directly related to computer science or something inappropriate, redirect me and have me write another question."
+    var prompt = `I am a middle school computer science student named Gabbi. You are my tutor named Ada. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If it will help refine your response, ask follow-up questions to gauge my understanding of the topic. Be conversational and use examples that I understand or that are on topics I am interested in. Don't give me exact answers if helping with a homework problem. Instead, walk through similar examples. If I try to ask a question about something not directly related to computer science or something inappropriate, redirect me and have me write another question. Render code snippets/pseudocode in ${prog_lang} unless otherwise directed.`
     return prompt
   }
 
@@ -114,7 +117,7 @@ function ChatWindow() {
             {message.sender === 'User' ? (
               <UserMessage text={message.text} botResponse={botResponse} />   // generate the User message component if it is a user message
             ) : (
-              <BotMessage text={message.text} />  // generate the bot message if it is a bot message
+              <BotMessage text={message.text} prog_lang={prog_lang} />  // generate the bot message if it is a bot message
             )}
           </div>
         ))}

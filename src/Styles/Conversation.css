@@ -118,6 +118,14 @@ body {
   margin-right: auto;
 }
 
+.inline { 
+  background-color: var(--text-white);
+  color: var(--accent2-hover);
+  border-radius: 0.3em;
+  padding: 4px 5px 6px;
+  white-space: nowrap;
+}
+
 .chat-input-container {
   display: flex;
   padding: 1rem;

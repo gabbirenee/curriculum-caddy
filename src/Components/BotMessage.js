@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-function BotMessage ({text}) {
+function BotMessage ({text, prog_lang}) {
   return (
     <div className='chat-message-bot'>
       <ReactMarkdown
@@ -19,12 +19,12 @@ function BotMessage ({text}) {
               <SyntaxHighlighter
                 children={String(children).replace(/\n$/, "")}
                 style={dracula} // theme
-                language={match[1]}
+                language={(match[1]) ? match[1] : prog_lang}
                 PreTag='section' // parent tag
                 {...props}
               />
             ) : (
-            <code className={className} {...props}>
+            <code className={'inline'} {...props}>
               {children}
             </code>
             );

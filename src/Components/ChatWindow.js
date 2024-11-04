@@ -30,16 +30,11 @@ function ChatWindow() {
     return prompt
   }
 
-  const summarize = async (initial_prompt) => {
+  const summarize = async (initial_prompt, convo) => {
     const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    // get all the messages that have been sent so far so that Gemini knows the conversation history
-    var convo = [...messages]
-    convo.pop()
-    convo = JSON.stringify(convo)
-
-    var sum_prompt = `${initial_prompt}\nSummarize our conversation so far: ${convo}.`
+    var sum_prompt = `Write a short summary of our conversation so far: ${convo}.`
 
     var result = await model.generateContent(sum_prompt);
     var response = result.response;
@@ -70,11 +65,26 @@ function ChatWindow() {
       const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      var initial_prompt = initialPrompt()  // get initial prompt
-      var summary = summarize(initial_prompt) // summarize conversation history
-      prompt = `${initial_prompt} This is a summary of our conversation so far: ${summary}\n My next prompt is: ${prompt}`  // put all the pieces Gemini needs together
-      console.log(prompt)
+      var initial_prompt = initialPrompt(); // get initial prompt
+      var recency_ind = 8
+      // get all the messages that have been sent so far so that Gemini knows the conversation history
+      var convo = [...messages];
+      convo.pop();
 
+      if (convo.length > recency_ind) {
+        var to_send = JSON.stringify(convo.slice(-recency_ind))
+        var to_summarize = JSON.stringify(convo.slice(convo.length-recency_ind))
+        console.log(`to_send: ${to_send}`)
+        console.log(`to_summarize: ${to_summarize}`)
+        var summary = await summarize(initial_prompt, to_summarize) // summarize conversation history
+        console.log(summary)
+        prompt = `${initial_prompt} This is a summary of our conversation so far: ${summary}\nHere are the last ${recency_ind} messages: ${to_send}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
+        console.log(prompt)
+      } else {
+        convo = JSON.stringify(convo)
+        prompt = `${initial_prompt}. Here is our conversation up until this point: ${convo}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
+        console.log(prompt)
+      }
       var result = await model.generateContent(prompt);
       var response = result.response;
       var text = response.text();  

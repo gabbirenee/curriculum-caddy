@@ -84,10 +84,17 @@ body {
 .chat-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 80%;
   height: 100vh;
   background-color: var(--bg-white);
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden; /* Ensures content stays within viewport */
 }
 
 .chat-window {
@@ -95,6 +102,7 @@ body {
   padding: 0.625rem;
   overflow-y: auto;
   margin-top: 1em; 
+  transition: max-height 0.2s ease; /* Controls height adjustment */
 }
 
 .chat-message-user, .chat-message-bot {
@@ -123,7 +131,6 @@ body {
   color: var(--accent2-hover);
   border-radius: 0.3em;
   padding: 4px 5px 6px;
-  white-space: nowrap;
 }
 
 .chat-input-container {
@@ -131,6 +138,8 @@ body {
   padding: 1rem;
   border-top: 1px solid var(--accent-lavender);
   background-color: var(--text-white);
+  max-height: 20%;
+  transition: height 0.2s ease; /* For smooth height adjustments */
 }
 
 .chat-input {
@@ -140,6 +149,7 @@ body {
   border-radius: 1.125rem;
   outline: none;
   font-size: 1em;
+  resize: none;   /* Prevent automatic resizing of the input */
 }
 
 .send-button {

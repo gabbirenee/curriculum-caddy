@@ -22,6 +22,9 @@ function ChatWindow() {
   // Ref to indicate bottom of chat window
   const chatEndRef = useRef(null);
 
+  // Ref for chat window in general
+  const chatWindowRef = useRef(null);
+
   // Scroll to bottom whenever messages state changes
   useEffect(() => {
     scrollToBottom();
@@ -49,6 +52,13 @@ function ChatWindow() {
   const scrollToBottom = () => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Helps with dynamic text area input
+  const adjustChatWindowHeight = (inputHeight) => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.style.maxHeight = `calc(100vh - ${inputHeight + 80}px)`; // adjust 80px as needed for padding/margins
     }
   };
 
@@ -103,43 +113,56 @@ function ChatWindow() {
   };
 
   // when 'enter' is pressed, do the same thing that you would when the submit button is clicked
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      handleSend(event);
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13 && e.shiftKey) {
+      e.preventDefault();
+      var inp = input;
+      inp = `${inp}\n`;
+      setInput(inp);
+    }
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSend(e);
     }
   };
 
   return (
     <div className="chat-container">
-      <div className="chat-window">
-        {messages.map((message, index) => ( // generate the messages by looping through the state
-          <div key={index} >
-            {message.sender === 'User' ? (
-              <UserMessage text={message.text} botResponse={botResponse} />   // generate the User message component if it is a user message
-            ) : (
-              <BotMessage text={message.text} prog_lang={prog_lang} />  // generate the bot message if it is a bot message
-            )}
-          </div>
-        ))}
-        {isLoading && <div className="loading-indicator">Ada is typing...</div>}
-        {/* This empty div represents the end of the chat */}
-        <div ref={chatEndRef} />
-      </div>
-      <div className="chat-input-container">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type your message here..."
-          className="chat-input"
-        />
-        {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
-        <button onClick={handleSend} className="send-button">
-          <svg xmlns="http://www.w3.org/2000/svg" height="25" width="36" viewBox="0 0 512 512">
-            <path className='airplane' d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
-          </svg>
-        </button>
+      <div className="chat-content">
+        <div className="chat-window" ref={chatWindowRef}>
+          {messages.map((message, index) => ( // generate the messages by looping through the state
+            <div key={index} >
+              {message.sender === 'User' ? (
+                <UserMessage text={message.text} botResponse={botResponse} />   // generate the User message component if it is a user message
+              ) : (
+                <BotMessage text={message.text} prog_lang={prog_lang} />  // generate the bot message if it is a bot message
+              )}
+            </div>
+          ))}
+          {isLoading && <div className="loading-indicator">Ada is typing...</div>}
+          {/* This empty div represents the end of the chat */}
+          <div ref={chatEndRef} />
+        </div>
+        <div className="chat-input-container">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onInput={(e) => {
+              e.target.style.height = 'auto';
+              e.target.style.height = `${e.target.scrollHeight-28}px`;
+              adjustChatWindowHeight(e.target.scrollHeight);
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder="Type your message here..."
+            className="chat-input"
+          />
+          {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
+          <button onClick={handleSend} className="send-button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="25" width="36" viewBox="0 0 512 512">
+              <path className='airplane' d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480l0-83.6c0-4 1.5-7.8 4.2-10.8L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

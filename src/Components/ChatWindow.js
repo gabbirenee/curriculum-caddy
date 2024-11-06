@@ -4,7 +4,7 @@ import UserMessage from './UserMessage.js';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import '../Styles/Conversation.css';
 
-function ChatWindow() {
+function ChatWindow({prog_lang, grade_level, subject, student_name}) {
   // where the actual conversation text will be stored
   const [messages, setMessages] = useState([
     { sender: 'Ada', text: "Hi! I'm Ada, your Curriculum Caddy. What can I help you with?" },
@@ -16,8 +16,8 @@ function ChatWindow() {
   // indicates that the bot response is being worked on
   const [isLoading, setIsLoading] = useState(false);
 
-  // the programming language that will be used in bot responses
-  const [prog_lang, setProgLang] = useState('python');
+  // // the programming language that will be used in bot responses
+  // const [prog_lang, setProgLang] = useState('python');
 
   // Ref to indicate bottom of chat window
   const chatEndRef = useRef(null);
@@ -32,11 +32,11 @@ function ChatWindow() {
 
   // function that returns the initial prompt; planning to allow the teachers to input additional information so this function will become more dynamic in the future
   const initialPrompt = () => {
-    var prompt = `I am a middle school computer science student named Gabbi. You are my tutor named Ada. Do not generate any responses that are not appropriate for middle school students or not related to the topic of computer science. If it will help refine your response, ask follow-up questions to gauge my understanding of the topic. Be conversational and use examples that I understand or that are on topics I am interested in. Don't give me exact answers if helping with a homework problem. Instead, walk through similar examples. If I try to ask a question about something not directly related to computer science or something inappropriate, redirect me and have me write another question. Render code snippets/pseudocode in ${prog_lang} unless otherwise directed.`
+    var prompt = `I am a ${grade_level} ${subject} student named ${student_name}. You are my tutor named Ada. To help them understand the concepts, give the student explanations, examples, and analogies at a level that are appropriate for ${grade_level} students only as needed. You should guide the students to their answers in an open-ended way. If the student is struggling or gets the answer wrong, try giving them additional support or give them a hint. If the student improves, then praise them and show excitement. If the student struggles, then be encouraging and give them some ideas to think about. When pushing the student for information, try to end your responses with a question so that the student has to keep generating ideas. Walk through example problems with the student to help them gain understanding of the topic. Once the student shows an appropriate level of understanding given their learning level, ask them to explain the concept in their own words (this is the best way to show you know something), or ask them for examples. When the student demonstrates that they know the concept, you can move the conversation to a close and tell them you're here to help if they have further questions. Do not generate any responses that are not appropriate for ${grade_level} students or not related to the topic of ${subject}. Don't give me exact answers if helping with a homework problem. If I try to ask a question about something not directly related to ${subject} or something inappropriate, redirect me and have me write another question. Render code snippets/pseudocode in ${prog_lang} unless otherwise directed. If I ask to move on, feel free to do so.`
     return prompt
   }
 
-  const summarize = async (initial_prompt, convo) => {
+  const summarize = async (convo) => {
     const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -89,13 +89,13 @@ function ChatWindow() {
         var to_summarize = JSON.stringify(convo.slice(convo.length-recency_ind))
         console.log(`to_send: ${to_send}`)
         console.log(`to_summarize: ${to_summarize}`)
-        var summary = await summarize(initial_prompt, to_summarize) // summarize conversation history
+        var summary = await summarize(to_summarize) // summarize conversation history
         console.log(summary)
-        prompt = `${initial_prompt} This is a summary of our conversation so far: ${summary}\nHere are the last ${recency_ind} messages: ${to_send}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
+        prompt = `${initial_prompt}\nThis is a summary of our conversation so far: ${summary}\nHere are the last ${recency_ind} messages: ${to_send}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
         console.log(prompt)
       } else {
         convo = JSON.stringify(convo)
-        prompt = `${initial_prompt}. Here is our conversation up until this point: ${convo}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
+        prompt = `${initial_prompt}\nHere is our conversation up until this point: ${convo}\nMy next prompt is: ${prompt}`  // put all the pieces Gemini needs together
         console.log(prompt)
       }
       var result = await model.generateContent(prompt);

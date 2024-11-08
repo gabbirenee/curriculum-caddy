@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import pdfToText from 'react-pdftotext';
 
-function CurriculumList ({grade_level}) {
+function CurriculumList ({prog_lang, subject, grade_level, student_name, curriculum, setProgLang, setSubject, setGradeLevel, setStudentName, setCurriculum}) {
   // generative AI model that will be used
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-  // const [curriculum, setCurriculum] = useState([])
-
 
   const onFileLoad = async (e) => {
     const file = e.target.files[0];
@@ -21,7 +18,7 @@ function CurriculumList ({grade_level}) {
       var result = await model.generateContent(obj_prompt);
       var response = result.response;
       var obj = response.text();  
-      console.log(`Objecives:\n${obj}`)
+      console.log(`Objectives:\n${obj}`)
 
       var terms_prompt = `Make a comma separated list of the key terms a ${grade_level} student will need to know to understand these lessons.  Do not include any information about what lesson it is coming from. If the terms from one lesson are the same as another lesson, do not include it. Do not include any additional formatting on the text, just provide the comma separated key terms. Here is the text: ${text}.`;
 
@@ -36,6 +33,8 @@ function CurriculumList ({grade_level}) {
       response = result.response;
       var skill_level = response.text();  
       console.log(`Skill Level: ${skill_level}`)
+
+      console.log(`name: ${student_name}`);
 
       // return text;  
     } catch (error) {

@@ -2,7 +2,7 @@ import React from 'react';
 import ToolBar from './ToolBar.js';
 import ChatWindow from './ChatWindow.js';
 
-function Conversation ({prog_lang, grade_level, subject, student_name}) {
+function Conversation ({prog_lang, grade_level, subject, student_name, curriculum}) {
   return (
     <div className="conversation">
       <ToolBar />

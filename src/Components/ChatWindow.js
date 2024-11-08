@@ -4,7 +4,7 @@ import UserMessage from './UserMessage.js';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import '../Styles/Conversation.css';
 
-function ChatWindow({prog_lang, grade_level, subject, student_name}) {
+function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum}) {
   // generative AI model that will be used
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });

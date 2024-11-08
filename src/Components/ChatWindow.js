@@ -5,6 +5,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import '../Styles/Conversation.css';
 
 function ChatWindow({prog_lang, grade_level, subject, student_name}) {
+  // generative AI model that will be used
+  const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
   // where the actual conversation text will be stored
   const [messages, setMessages] = useState([
     { sender: 'Ada', text: "Hi! I'm Ada, your Curriculum Caddy. What can I help you with?" },
@@ -37,9 +41,6 @@ function ChatWindow({prog_lang, grade_level, subject, student_name}) {
   }
 
   const summarize = async (convo) => {
-    const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
     var sum_prompt = `Write a short summary of our conversation so far: ${convo}.`
 
     var result = await model.generateContent(sum_prompt);
@@ -75,8 +76,6 @@ function ChatWindow({prog_lang, grade_level, subject, student_name}) {
   const botResponse = async (prompt) => {
     try {
       setIsLoading(true);
-      const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       var initial_prompt = initialPrompt(); // get initial prompt
       var recency_ind = 8

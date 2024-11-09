@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import BotMessage from './BotMessage.js';
 import UserMessage from './UserMessage.js';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import '../Styles/Conversation.css';
 
 function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum}) {
   // generative AI model that will be used

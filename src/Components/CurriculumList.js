@@ -46,6 +46,7 @@ function CurriculumList ({prog_lang, subject, grade_level, student_name, curricu
       // console.log(`Skill Level: ${skill_level}`)
 
       var new_document = {
+        'id': Date.now(),
         'name': `Document ${curriculum.length}`,
         'status': `Not Started`,
         'objectives': obj,

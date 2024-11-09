@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import '../Styles/App.css';
-import Conversation from './Conversation.js';
-import Settings from './Settings.js';
+import ToolBar from './ToolBar.js';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+// import '../Styles/Conversation.css';
+import MainContent from './MainContent.js';
 
 function App () {
     // the programming language that will be used in bot responses
@@ -22,16 +23,10 @@ function App () {
 
   return (
     <BrowserRouter>
-        <Routes>
-            <Route 
-              exact 
-              path="/settings" 
-              element={<Settings prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} setProgLang={setProgLang} setSubject={setSubject} setGradeLevel={setGradeLevel} setStudentName={setStudentName} setCurriculum={setCurriculum} />} 
-            />
-            <Route path="/" 
-              element={<Conversation prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} />} 
-            />
-        </Routes>
+        <div className="app">
+          <ToolBar />
+          <MainContent prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} setProgLang={setProgLang} setSubject={setSubject} setGradeLevel={setGradeLevel} setStudentName={setStudentName} setCurriculum={setCurriculum} />
+        </div>
     </BrowserRouter>
   );
 }

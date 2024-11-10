@@ -1,20 +1,41 @@
-import React from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 function ToolBar () {
   const navigate = useNavigate(); 
+  const homeRef = useRef(null);
 
-  const handleCurriculumClick = () => {
+  // use for selection styling in navigation
+  const [currentPage, setCurrentPage] = useState([]);
+
+  useEffect(() => {
+    setCurrentPage([homeRef.current])
+  }, []);
+
+  const handleNavigation = (e) => {
+    if (!currentPage.includes(e.target)) {
+      if (currentPage[0]) {
+        currentPage[0].classList.remove('current-page');
+      }
+      setCurrentPage([e.target]);
+      e.target.classList.add('current-page');
+    } 
+  }
+
+  const handleCurriculumClick = (e) => {
+    handleNavigation(e);
     console.log("Curriculum Button Clicked");
     navigate('/curriculum');
   }
 
-  const handleConversationClick = () => {
+  const handleConversationClick = (e) => {
+    handleNavigation(e);
     console.log("Conversation Button Clicked");
     navigate('/');
   }
 
-  const handleSettingsClick = () => {
+  const handleSettingsClick = (e) => {
+    handleNavigation(e);
     console.log("Settings Button Clicked");
     navigate('/settings');
   }
@@ -29,7 +50,7 @@ function ToolBar () {
         Curriculum Caddy
       </div>
       <div className="navigation">
-        <button className="conversation-button" onClick={handleConversationClick}>
+        <button className="conversation-button current-page" onClick={handleConversationClick} ref={homeRef}>
             <svg xmlns="http://www.w3.org/2000/svg" height="23" width="23" viewBox="0 0 512 512">
             {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
               <path className='conversation-icon' d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l96 0 0 80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416 448 416c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0z"/>

@@ -19,6 +19,7 @@ body {
     --accent2: #9966ccff;
     --accent2-hover: #582490;
     --accent-lavender: #e6e6faff;
+    --accent-lavender-hover: #b5b5d8;
     --text-gray: #2d3031;
     --text-white: #fff;
 }
@@ -91,6 +92,15 @@ body {
   
 .settings-icon, .conversation-icon, .curriculum-icon { 
     fill: var(--accent2);
+}
+
+.settings-button.current-page, .conversation-button.current-page, .curriculum-button.current-page {
+    background-color: var(--accent2);
+    color: var(--bg-smoke);
+}
+
+.settings-button.current-page svg path, .conversation-button.current-page svg path, .curriculum-button.current-page svg path{ 
+    fill: var(--bg-smoke);
 }
   
 /* CHAT WINDOW SETTINGS */
@@ -210,8 +220,43 @@ body {
 /* CURRICULUM STYLINGS */
 .Curriculum {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 80%;
     height: 100vh;
     background-color: var(--bg-white);
+}
+
+.CurriculumList {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    padding: 2.75rem 0 0 0rem;
+    width: 15%;
+    height: 100vh;
+    /* border-right: 0.1rem solid var(--accent-lavender); */
+    background-color: var(--accent-lavender);
+    /* position: fixed; */
+    left: 0;
+    top: 0;
+}
+
+.document { 
+    display: flex;
+    align-items: center;
+    height: 5vh; 
+    padding: 0.5rem 0 0 1rem;
+    color: var(--text-gray);
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.document:hover {
+    background-color: var(--accent-lavender-hover); 
+}
+
+.document.selected {
+    background-color: var(--accent2); 
+    color: white;
 }

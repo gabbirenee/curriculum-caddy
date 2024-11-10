@@ -21,12 +21,12 @@ function Curriculum ({prog_lang, subject, grade_level, student_name, curriculum,
       var result = await model.generateContent(obj_prompt);
       var response = result.response;
       var obj = response.text();  
-      obj = obj.split('\n')
-      console.log(obj)
-      if (obj[obj.length-1] === "") {
-        obj.pop();
-      }
-      console.log(obj)
+      // obj = obj.split('\n')
+      // console.log(obj)
+      // if (obj[obj.length-1] === "") {
+      //   obj.pop();
+      // }
+      // console.log(obj)
       // console.log(`Objectives:\n${obj}`)
 
       var terms_prompt = `Make a list of the key ${subject} terms from these lessons that a a ${grade_level} student should know. Do not include any information about what lesson it is coming from. If the terms from one lesson are the same as another lesson, do not include it. Do not include any additional formatting on the text, just provide each term on its own line. Here is the text: ${text}.`;
@@ -34,9 +34,9 @@ function Curriculum ({prog_lang, subject, grade_level, student_name, curriculum,
       result = await model.generateContent(terms_prompt);
       response = result.response;
       var terms = response.text();  
-      // terms = terms.replace(/(\r\n|\n|\r)/gm, "");
-      terms = terms.split('\n')
-      console.log(terms)
+      // // terms = terms.replace(/(\r\n|\n|\r)/gm, "");
+      // terms = terms.split('\n')
+      // console.log(terms)
       // console.log(`Key Terms: ${terms}`)
 
       var skill_prompt = `Rate this unit on how difficult it is for a ${grade_level} student to understand. Rate it on a scale from 1 to 10, 1 being easiest and 10 being hardest. Do not include any additional text in your response outside of the numerical rating. Do not include any new lines. Here is the unit text: ${text}.`;
@@ -44,8 +44,8 @@ function Curriculum ({prog_lang, subject, grade_level, student_name, curriculum,
       result = await model.generateContent(skill_prompt);
       response = result.response;
       var skill_level = response.text();  
-      skill_level = skill_level.replace(/(\r\n|\n|\r)/gm, "");
-      skill_level = parseInt(skill_level)
+      // skill_level = skill_level.replace(/(\r\n|\n|\r)/gm, "");
+      // skill_level = parseInt(skill_level)
       // console.log(`Skill Level: ${skill_level}`)
 
       var new_document = {

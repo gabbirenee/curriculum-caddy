@@ -16,14 +16,10 @@ function CurriculumList ({curriculum}) {
       setSelected([]);
       selected[0].classList.remove('selected');
     }
-    
   }
 
   return (
     <div className="CurriculumList">
-      {/* <div className="document">DOC 1</div>
-      <div className="document">DOC 2</div>
-      <div className="document">DOC 3</div> */}
       {curriculum.map((document, index) => ( // generate the messages by looping through the state
         <div data-key={document.id} key={index} className="document" onClick={handleSelect}>
           {document.name}

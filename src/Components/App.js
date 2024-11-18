@@ -20,7 +20,7 @@ function App () {
 
     // the curriculum info that the teacher has entered
     // const [curriculum, setCurriculum] = useState([]);
-    const [curriculum, setCurriculum] = useState([{'id': 1,'name': `Test Doc 1`,'status': `Not Started`,'objectives': 'asdf','key_terms': 'term1, term2', 'skill_level': '1','add_info': ''}, {'id': 2,'name': `Test Doc 2`,'status': `In Progress`,'objectives': 'lkjhj','key_terms': 'term3, term4', 'skill_level': '2','add_info': ''}, {'id': 3,'name': `Test Doc 3`,'status': `Completed`,'objectives': 'iouwuiwui','key_terms': 'term5, term6','skill_level': '3','add_info': ''}]);
+    const [curriculum, setCurriculum] = useState([{'id': 1,'name': `Test Doc 1`,'status': `not-started`,'objectives': 'asdf','key_terms': 'term1, term2', 'skill_level': '1','add_info': ''}, {'id': 2,'name': `Test Doc 2`,'status': `in-progress`,'objectives': 'lkjhj','key_terms': 'term3, term4', 'skill_level': '2','add_info': ''}, {'id': 3,'name': `Test Doc 3`,'status': `completed`,'objectives': 'iouwuiwui','key_terms': 'term5, term6','skill_level': '3','add_info': ''}]);
 
   return (
     <BrowserRouter>

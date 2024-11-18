@@ -16,7 +16,7 @@ function MainContent ({prog_lang, subject, grade_level, student_name, curriculum
             <Route 
               exact 
               path="/curriculum" 
-              element={<Curriculum prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} setProgLang={setProgLang} setSubject={setSubject} setGradeLevel={setGradeLevel} setStudentName={setStudentName} setCurriculum={setCurriculum} />} 
+              element={<Curriculum subject={subject} grade_level={grade_level} curriculum={curriculum} setCurriculum={setCurriculum} />} 
             />
             <Route path="/" 
               element={<ChatWindow prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} />} 

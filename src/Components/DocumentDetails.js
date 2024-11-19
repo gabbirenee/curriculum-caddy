@@ -15,6 +15,31 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
     setSkill(selectedData.skill_level);
   }, [selectedData]); 
 
+  const handleSave = () => {
+    const newDoc = {
+      'id': selectedData['id'],
+      'name': docName,
+      'status': docStatus,
+      'objectives': keyObj,
+      'key_terms': keyTerms, 
+      'skill_level': skill,
+      'add_info': ''
+    };
+    console.log(`new doc details: ${newDoc}`)
+
+    setCurriculum(cur => cur.map(item => 
+      item.id === selectedData['id'] ? { ...item, ...newDoc } : item
+    ));
+  }
+
+  const handleDiscard = () => {
+    setDocName(selectedData.name);
+    setDocStatus(selectedData.status)
+    setKeyObj(selectedData.objectives);
+    setKeyTerms(selectedData.key_terms);
+    setSkill(selectedData.skill_level);
+  }
+
   return (
     <div className="DocumentDetails">
       <h1>Document Details</h1>
@@ -52,8 +77,8 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
           max="10"
           step="1"
         />
-        <button className="save-doc-changes">Save</button>
-        <button className="discard-doc-changes">Discard Changes</button>
+        <button className="save-doc-changes" onClick={handleSave}>Save</button>
+        <button className="discard-doc-changes" onClick={handleDiscard}>Discard Changes</button>
       </div>
     </div>
   );

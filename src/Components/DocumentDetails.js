@@ -40,6 +40,14 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
     setSkill(selectedData.skill_level);
   }
 
+  const handleDelete = () => {
+    const userAck = window.confirm('This document will be deleted. This action cannot be undone. Click "OK" to proceed or "Cancel" to go back.'); 
+    
+    if (userAck) {
+      setCurriculum(cur => cur.filter(item => item.id !== selectedData['id']));
+    }
+  }
+
   return (
     <div className="DocumentDetails">
       <h1>Document Details</h1>
@@ -79,6 +87,7 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
         />
         <button className="save-doc-changes" onClick={handleSave}>Save</button>
         <button className="discard-doc-changes" onClick={handleDiscard}>Discard Changes</button>
+        <button className="delete-doc" onClick={handleDelete}>Delete</button>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ function Curriculum ({subject, grade_level, curriculum, setCurriculum}) {
   // track the current document - when the component loads it will be set to a default, blank value
   // const [selected, setSelected] = useState([{'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''}]);
   // Holds the selected element
-  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState([]);
   // Holds the selected elements data
   const [selectedData, setSelectedData] = useState({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''})
 
@@ -71,7 +71,8 @@ function Curriculum ({subject, grade_level, curriculum, setCurriculum}) {
 
       setCurriculum([...curriculum, new_document]);
       clearInput(e.target);
-      console.log(new_document)
+      console.log(new_document);
+      setSelectedData(new_document);
 
     } catch (error) {
       clearInput(e.target);
@@ -82,11 +83,11 @@ function Curriculum ({subject, grade_level, curriculum, setCurriculum}) {
     
   return (
     <div className="Curriculum">
-      <CurriculumList curriculum={curriculum} selected={selected} setSelected={setSelected} selectedData={selectedData} setSelectedData={setSelectedData} />
+      <CurriculumList curriculum={curriculum} selectedData={selectedData} setSelectedData={setSelectedData} />
       <div className="file-upload-container">
         <input type="file" accept=".pdf" ref={inputRef} onChange={(e) => onFileLoad(e)} />
       </div>
-      <DocumentDetails curriculum={curriculum} setCurriculum={setCurriculum} selected={selected} setSelected={setSelected} selectedData={selectedData} setSelectedData={setSelectedData} />
+      <DocumentDetails curriculum={curriculum} setCurriculum={setCurriculum} selectedData={selectedData} setSelectedData={setSelectedData} />
     </div>
   );
 }

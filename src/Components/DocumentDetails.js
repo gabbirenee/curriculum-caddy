@@ -13,23 +13,46 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
     setKeyObj(selectedData.objectives);
     setKeyTerms(selectedData.key_terms);
     setSkill(selectedData.skill_level);
-  }, [selectedData]); 
+
+    // add the selected class to the selected document 
+    Array.from(document.querySelectorAll('.document')).forEach(
+      (el) => {
+        if (parseInt(el.dataset.key) === selectedData['id']) {
+          el.classList.add('selected');
+        } 
+      }
+    );
+  }, [selectedData, curriculum]); 
 
   const handleSave = () => {
-    const newDoc = {
-      'id': selectedData['id'],
-      'name': docName,
-      'status': docStatus,
-      'objectives': keyObj,
-      'key_terms': keyTerms, 
-      'skill_level': skill,
-      'add_info': ''
-    };
-    console.log(`new doc details: ${newDoc}`)
-
-    setCurriculum(cur => cur.map(item => 
-      item.id === selectedData['id'] ? { ...item, ...newDoc } : item
-    ));
+    if (selectedData['id'] !== -1) {   // document already exists
+      var newDoc = {
+        'id': selectedData['id'],
+        'name': docName,
+        'status': docStatus,
+        'objectives': keyObj,
+        'key_terms': keyTerms, 
+        'skill_level': skill,
+        'add_info': ''
+      };
+      setCurriculum(cur => cur.map(item => 
+        item.id === selectedData['id'] ? { ...item, ...newDoc } : item
+      ));
+    } else {  // this is a new document
+      var id = Date.now();
+      newDoc = {
+        'id': id,
+        'name': docName,
+        'status': docStatus,
+        'objectives': keyObj,
+        'key_terms': keyTerms, 
+        'skill_level': skill,
+        'add_info': ''
+      };
+      console.log('brand new doc!')
+      setCurriculum([...curriculum, newDoc]);
+      setSelectedData(newDoc);
+    }
   }
 
   const handleDiscard = () => {
@@ -45,6 +68,11 @@ function DocumentDetails ({curriculum, setCurriculum, selected, setSelected, sel
     
     if (userAck) {
       setCurriculum(cur => cur.filter(item => item.id !== selectedData['id']));
+      Array.from(document.querySelectorAll('.selected')).forEach(
+        (el) => el.classList.remove('selected')
+      );  // remove the selected class from all elements on the page
+      setSelectedData({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''});
+      handleDiscard();  // this will update the fields on the page
     }
   }
 

@@ -10,15 +10,25 @@ function CurriculumList ({curriculum, selectedData, setSelectedData}) {
       (el) => el.classList.remove('selected')
     );  // remove the selected class from all elements on the page
     e.target.classList.add('selected'); // update the element styling 
+
+    // hide the placeholder document in list
+    Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
+      (el) => {
+        el.classList.add('hide');
+      }
+    );
   } 
 
   return (
     <div className="CurriculumList">
-      {curriculum.map((document, index) => ( // generate the messages by looping through the state
-        <div data-key={document.id} key={index} className="document" onClick={handleSelect}>
-          {document.name}
-        </div>
-      ))}
+      <div className="existing-docs">
+        {curriculum.map((document, index) => ( // generate the messages by looping through the state
+          <div data-key={document.id} key={index} className="document" onClick={handleSelect}>
+            {document.name}
+          </div>
+        ))}
+        <div className="placeholder-doc">New Document</div>
+      </div>
     </div>
   );
 }

@@ -233,7 +233,8 @@ body {
 .CurriculumList {
     display: flex;
     flex-direction: column;
-    padding: 2.75rem 0 0 0rem;
+    justify-content: space-between;
+    /* padding: 2.75rem 0 0 0rem; */
     width: 20%;
     height: 100vh;
     /* border-right: 0.1rem solid var(--accent2); *); */
@@ -254,6 +255,22 @@ body {
     transition: background-color 0.3s;
 }
 
+.placeholder-doc {
+    align-items: center;
+    height: 5vh; 
+    padding: 0.5rem 0 0 1rem;
+    background-color: var(--accent2); 
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.existing-docs {
+    margin-top: 2.5em;
+}
+
 .document:hover {
     background-color: var(--accent-lavender-hover); 
 }
@@ -261,4 +278,39 @@ body {
 .document.selected {
     background-color: var(--accent2); 
     color: white;
+}
+
+.DocumentDetails  {
+    display: flex;
+    justify-content: space-around;
+    width: 100%; 
+    padding-top: 1rem;
+}
+
+.add-new-doc {
+    display: flex;
+    align-items: center;
+    height: 5vh; 
+    margin-top: 1rem;
+    padding: 0.25rem 1.5rem 0.25rem 1rem;
+    width: fit-content; 
+    color: var(--text-white);
+    background-color: var(--accent2);
+    /* color: var(--accent2);
+    background-color: var(--text-white); */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    /* margin-bottom: 1em; */
+    border-radius: 1.125rem;
+}
+
+.add-new-doc:hover {
+    /* background-color: var(--bg-white-hover); */
+    background-color: var(--accent2-hover);
+}
+
+.plus{ 
+    /* fill: var(--accent2); */
+    fill: var(--text-white);
 }

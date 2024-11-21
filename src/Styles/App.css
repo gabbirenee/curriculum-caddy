@@ -282,9 +282,32 @@ body {
 
 .DocumentDetails  {
     display: flex;
-    justify-content: space-around;
+    padding: 0rem 1rem;
+    justify-content: space-between;
     width: 100%; 
     padding-top: 1rem;
+    overflow: auto;
+}
+
+.details-section {
+    width: 75%; 
+}
+
+.current-doc-details input, .current-doc-details select, .current-doc-details textarea{
+    padding: 0.625rem;
+    border: 1px solid #ddd;
+    border-radius: 1.125rem;
+    outline: none;
+    font-size: 0.75em;
+    /* resize: none;   Prevent automatic resizing of the input */
+}
+.current-doc-details input, .current-doc-details select {
+    width: 50%; 
+    margin: 1rem 0 0 0.5rem;
+}
+
+.current-doc-details textarea {
+    width: 100%; 
 }
 
 .add-new-doc {
@@ -313,4 +336,14 @@ body {
 .plus{ 
     /* fill: var(--accent2); */
     fill: var(--text-white);
+}
+
+.doc-details-btns {
+    margin-top: 0.75rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.inline-header {
+    display: inline;
 }

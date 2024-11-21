@@ -347,3 +347,40 @@ body {
 .inline-header {
     display: inline;
 }
+
+.save-doc-changes, .discard-doc-changes, .delete-doc {
+    align-items: center;
+    height: 5vh; 
+    margin-top: 1rem;
+    padding: 0.25rem 1.5rem 0.25rem 1.5rem;
+    width: fit-content; 
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    border-radius: 1.125rem;
+    border: none;
+    color: var(--text-white);
+}
+
+.save-doc-changes { 
+    background-color: #2ec933; 
+}
+
+.save-doc-changes:hover { 
+    background-color: #249d28; 
+}
+
+.discard-doc-changes { 
+    background-color: #989898; 
+}
+
+.discard-doc-changes:hover {
+    background-color: #757474; 
+}
+
+.delete-doc {
+    background-color: #e71818;
+}
+.delete-doc:hover {
+    background-color: #b30b0b;
+}

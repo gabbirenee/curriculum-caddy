@@ -45,7 +45,7 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
         }
       );
     }
-  }, [selectedData, curriculum]); 
+  }, [selectedData]); 
 
   const handleSave = () => {
     if (selectedData['id'] !== -1) {   // document already exists
@@ -58,6 +58,7 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
         'skill_level': skill,
         'add_info': ''
       };
+      console.log(newDoc);
       setCurriculum(cur => cur.map(item => 
         item.id === selectedData['id'] ? { ...item, ...newDoc } : item
       ));
@@ -73,9 +74,16 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
         'add_info': ''
       };
       console.log('brand new doc!')
+      console.log(newDoc);
       setCurriculum([...curriculum, newDoc]);
       setSelectedData(newDoc);
     }
+    // show the placeholder document in list
+    Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
+      (el) => {
+        el.classList.add('hide');
+      }
+    );
   }
 
   const handleDiscard = () => {
@@ -96,6 +104,13 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
       );  // remove the selected class from all elements on the page
       setSelectedData({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''});
       handleDiscard();  // this will update the fields on the page
+
+      // show the placeholder document in list
+      Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
+        (el) => {
+          el.classList.remove('hide');
+        }
+      );
     }
   }
 
@@ -171,6 +186,13 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
       clearInput(e.target);
       console.log(new_document);
       setSelectedData(new_document);
+
+      // hide the placeholder doc if it is showing
+      Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
+        (el) => {
+          el.classList.add('hide');
+        }
+    );
 
     } catch (error) {
       clearInput(e.target);

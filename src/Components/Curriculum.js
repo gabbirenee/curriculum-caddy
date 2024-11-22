@@ -3,7 +3,7 @@ import CurriculumList from './CurriculumList.js';
 import DocumentDetails from './DocumentDetails.js';
 
 
-function Curriculum ({subject, grade_level, curriculum, setCurriculum}) {
+function Curriculum ({subject, grade_level, curriculum, setCurriculum, user_role}) {
   // track the current document - when the component loads it will be set to a default, blank value
   const [selectedData, setSelectedData] = useState({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''})
     

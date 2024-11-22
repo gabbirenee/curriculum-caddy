@@ -3,7 +3,7 @@ import BotMessage from './BotMessage.js';
 import UserMessage from './UserMessage.js';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum}) {
+function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum, user_role}) {
   // generative AI model that will be used
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -35,7 +35,11 @@ function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum})
 
   // function that returns the initial prompt; planning to allow the teachers to input additional information so this function will become more dynamic in the future
   const initialPrompt = () => {
-    var prompt = `I am a ${grade_level} student in a ${subject} course named ${student_name}. You are my tutor named Ada. To help me understand the concepts, give the me explanations, examples, and analogies at a level that are appropriate for ${grade_level} students. You should guide me to get my answers in an open-ended way. If I am struggling or ges the answer wrong, try giving me additional support or a hint. If the I improve, being excited and encourage me. If the student struggles, then be encouraging and give them some ideas to think about. Walk through example problems with me to help them gain understanding of the topic. When I demonstrate that I know the concept, you can move the conversation to a close and tell them you're here to help if they have further questions. Don't give me exact answers if helping with a homework problem. If I try to ask a question about something not directly related to ${subject} or something inappropriate, redirect me and have me write another question. Render code snippets/pseudocode in ${prog_lang} unless otherwise directed. If I ask to move on, feel free to do so.`
+    var completed = JSON.stringify(curriculum.filter(item => item.status === 'completed'));
+    var in_prog = JSON.stringify(curriculum.filter(item => item.status === 'in-progress')); 
+
+    var prompt = `I am a ${grade_level} student in a ${subject} course named ${student_name}. You are my tutor named Ada. To help me understand the concepts, give the me explanations, examples, and analogies at a level that are appropriate for ${grade_level} students. You should guide me to get my answers in an open-ended way. If I am struggling or ges the answer wrong, try giving me additional support or a hint. If the I improve, being excited and encourage me. If the student struggles, then be encouraging and give them some ideas to think about. Walk through example problems with me to help them gain understanding of the topic. When I demonstrate that I know the concept, you can move the conversation to a close and tell them you're here to help if they have further questions. Don't give me exact answers if helping with a homework problem. If I try to ask a question about something not directly related to ${subject} or something inappropriate, redirect me and have me write another question. Render code snippets/pseudocode in ${prog_lang} unless otherwise directed. If I ask to move on, feel free to do so.\nHere are the details around the lessons I have completed so far: ${completed}.\nHere are the details around lessons I am currently working on: ${in_prog}.`
+
     return prompt
   }
 

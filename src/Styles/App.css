@@ -217,7 +217,7 @@ body {
     background-color: var(--bg-white);
 }
   
-.user-settings {
+.user-settings, .classroom-settings {
     margin: 1rem;
 }
 
@@ -383,4 +383,17 @@ body {
 }
 .delete-doc:hover {
     background-color: #b30b0b;
+}
+
+.Settings input, .Settings select{
+    padding: 0.625rem;
+    border: 1px solid #ddd;
+    border-radius: 1.125rem;
+    outline: none;
+    font-size: 1em;
+    /* resize: none;   Prevent automatic resizing of the input */
+}
+.Settings input, .Settings select {
+    width: 50%; 
+    margin: 1rem 0 0 0.5rem;
 }

@@ -13,11 +13,11 @@ function MainContent ({prog_lang, subject, grade_level, student_name, curriculum
               path="/settings" 
               element={<Settings prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} setProgLang={setProgLang} setSubject={setSubject} setGradeLevel={setGradeLevel} setStudentName={setStudentName} setCurriculum={setCurriculum} user_role={user_role} setUserRole={setUserRole} />} 
             />
-            <Route 
+            {user_role === "teacher" && <Route 
               exact 
               path="/curriculum" 
               element={<Curriculum subject={subject} grade_level={grade_level} curriculum={curriculum} setCurriculum={setCurriculum} user_role={user_role} />} 
-            />
+            />}
             <Route path="/" 
               element={<ChatWindow prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} user_role={user_role} />} 
             />

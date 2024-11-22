@@ -27,7 +27,7 @@ function App () {
   return (
     <BrowserRouter>
         <div className="app">
-          <ToolBar />
+          <ToolBar user_role={user_role} />
           <MainContent prog_lang={prog_lang} subject={subject} grade_level={grade_level} student_name={student_name} curriculum={curriculum} setProgLang={setProgLang} setSubject={setSubject} setGradeLevel={setGradeLevel} setStudentName={setStudentName} setCurriculum={setCurriculum} user_role={user_role} setUserRole={setUserRole} />
         </div>
     </BrowserRouter>

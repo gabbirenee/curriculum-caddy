@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../Styles/App.css';
 import ToolBar from './ToolBar.js';
 import {BrowserRouter} from 'react-router-dom';
 import MainContent from './MainContent.js';
+import base from '../base';
+import { ref, onValue, get } from "firebase/database";
 
 function App () {
     // the programming language that will be used in bot responses
@@ -21,8 +23,23 @@ function App () {
     const [user_role, setUserRole] = useState('teacher'); 
 
     // the curriculum info that the teacher has entered
-    // const [curriculum, setCurriculum] = useState([]);
-    const [curriculum, setCurriculum] = useState([{'id': 1,'name': `Test Doc 1`,'status': `not-started`,'objectives': 'asdf','key_terms': 'term1, term2', 'skill_level': '1','add_info': ''}, {'id': 2,'name': `Test Doc 2`,'status': `in-progress`,'objectives': 'lkjhj','key_terms': 'term3, term4', 'skill_level': '2','add_info': ''}, {'id': 3,'name': `Test Doc 3`,'status': `completed`,'objectives': 'iouwuiwui','key_terms': 'term5, term6','skill_level': '3','add_info': ''}]);
+    const [curriculum, setCurriculum] = useState([]);
+
+    useEffect(() => {
+      const query = ref(base);
+      onValue(query, (snapshot) => {
+        var data = snapshot.val();
+        console.log(data)
+        var cur = []; 
+        if (snapshot.exists()) {
+          for (const [key, value] of Object.entries(data)) {
+            cur.push(value);
+          }
+          setCurriculum(cur);
+        }
+      });
+
+    }, []);
 
   return (
     <BrowserRouter>

@@ -256,6 +256,7 @@ body {
 }
 
 .placeholder-doc {
+    display: flex; 
     align-items: center;
     height: 5vh; 
     padding: 0.5rem 0 0 1rem;
@@ -265,6 +266,10 @@ body {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s;
+}
+
+.placeholder-doc.hide {
+    display: none;
 }
 
 .existing-docs {

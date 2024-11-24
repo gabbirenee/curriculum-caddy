@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import pdfToText from 'react-pdftotext';
+import base from '../base';
+import { ref, update, remove } from "firebase/database";
 
 function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, selectedData, setSelectedData}) {
   // generative AI model that will be used
@@ -45,7 +47,23 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
         }
       );
     }
+
+    // update the firebase database
+    // set(ref(base, 'curriculum'), curriculum);
   }, [selectedData]); 
+
+  const updateDB = (new_doc) => {
+    // const cur_ref = ref(base, 'curriculum'); 
+    // console.log(cur_ref);
+    const updates = {};
+    Object.values(curriculum).map((cur) => {
+      // var cur_ref = ref(base, `${cur['id']}/`);
+      // set(cur_ref, cur);
+      updates[`${cur['id']}`] = cur;
+    });
+    updates[`${new_doc['id']}`] = new_doc;
+    update(ref(base), updates);
+  }
 
   const handleSave = () => {
     if (selectedData['id'] !== -1) {   // document already exists
@@ -84,6 +102,7 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
         el.classList.add('hide');
       }
     );
+    updateDB(newDoc);
   }
 
   const handleDiscard = () => {
@@ -95,22 +114,28 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
   }
 
   const handleDelete = () => {
-    const userAck = window.confirm('This document will be deleted. This action cannot be undone. Click "OK" to proceed or "Cancel" to go back.'); 
-    
-    if (userAck) {
-      setCurriculum(cur => cur.filter(item => item.id !== selectedData['id']));
-      Array.from(document.querySelectorAll('.selected')).forEach(
-        (el) => el.classList.remove('selected')
-      );  // remove the selected class from all elements on the page
-      setSelectedData({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''});
-      handleDiscard();  // this will update the fields on the page
+    if (selectedData['id'] === -1) {
+      handleDiscard();
+    } else {
+      const userAck = window.confirm('This document will be deleted. This action cannot be undone. Click "OK" to proceed or "Cancel" to go back.'); 
+      
+      if (userAck) {
+        setCurriculum(cur => cur.filter(item => item.id !== selectedData['id']));
+        const cur_ref = ref(base, `${selectedData['id']}/`);
+        remove(cur_ref);
+        Array.from(document.querySelectorAll('.selected')).forEach(
+          (el) => el.classList.remove('selected')
+        );  // remove the selected class from all elements on the page
+        setSelectedData({'id': -1, 'name': '', 'status': 'not-started', 'objectives': '', 'key_terms': '', 'skill_level': 1, 'add_info': ''});
+        handleDiscard();  // this will update the fields on the page
 
-      // show the placeholder document in list
-      Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
-        (el) => {
-          el.classList.remove('hide');
-        }
-      );
+        // show the placeholder document in list
+        Array.from(document.querySelectorAll('.placeholder-doc')).forEach(
+          (el) => {
+            el.classList.remove('hide');
+          }
+        );
+      }
     }
   }
 
@@ -141,8 +166,8 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
     const file = e.target.files[0];
     e.target.disabled = true;
     // console.log(file); 
-    if (file.size > 2097152) {
-      alert("File size is limited to 2MB. Please try again with a smaller file.");
+    if (file.size > 5242880) {
+      alert("File size is limited to 4MB. Please try again with a smaller file.");
       clearInput(e.target);
       return;
     }
@@ -183,6 +208,7 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
       };
 
       setCurriculum([...curriculum, new_document]);
+      updateDB(new_document);
       clearInput(e.target);
       console.log(new_document);
       setSelectedData(new_document);

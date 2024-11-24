@@ -8,6 +8,7 @@ function ToolBar ({user_role}) {
   const homeRef = useRef(null);
   const settingsRef = useRef(null);
   const curriculumRef = useRef(null);
+  const startRef = useRef(null); 
 
   // use for selection styling in navigation
   const [currentPage, setCurrentPage] = useState([]);
@@ -22,7 +23,10 @@ function ToolBar ({user_role}) {
       setCurrentPage([curriculumRef.current]);
       curriculumRef.current.classList.add('current-page');
     } 
-    else {
+    else if (location.pathname.includes('start')) {
+      setCurrentPage([startRef.current]);
+      startRef.current.classList.add('current-page');
+    } else {
       setCurrentPage([homeRef.current]);
       homeRef.current.classList.add('current-page');
     }
@@ -56,6 +60,12 @@ function ToolBar ({user_role}) {
     navigate('/settings');
   }
 
+  const handleStartClick = (e) => {
+    handleNavigation(e);
+    console.log("Start Button Clicked");
+    navigate('/start');
+  }
+
   return (
     <div className="tool-bar">
       <div className="logo">
@@ -66,6 +76,13 @@ function ToolBar ({user_role}) {
         Curriculum Caddy
       </div>
       <div className="navigation">
+        <button className="start-button" onClick={handleStartClick} ref={startRef}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="23" width="23" viewBox="0 0 512 512">
+            {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
+              <path className='start-icon' d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+            </svg>
+            Start Here
+        </button>
         <button className="conversation-button" onClick={handleConversationClick} ref={homeRef}>
             <svg xmlns="http://www.w3.org/2000/svg" height="23" width="23" viewBox="0 0 512 512">
             {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}

@@ -72,7 +72,7 @@ body {
     width: 100%; 
 }
   
-.settings-button, .conversation-button, .curriculum-button {
+.settings-button, .conversation-button, .curriculum-button, .start-button {
     display: flex;
     align-items: center;
     height: 7vh; 
@@ -86,24 +86,24 @@ body {
     width: 100%; 
 }
   
-.settings-button svg, .conversation-button svg, .curriculum-button svg {
+.settings-button svg, .conversation-button svg, .curriculum-button svg, .start-button svg {
     margin-right: 5%; 
 }
   
-.settings-button:hover, .conversation-button:hover, .curriculum-button:hover {
+.settings-button:hover, .conversation-button:hover, .curriculum-button:hover, .start-button:hover {
     background-color: var(--bg-white-hover); 
 }
   
-.settings-icon, .conversation-icon, .curriculum-icon { 
+.settings-icon, .conversation-icon, .curriculum-icon, .start-icon { 
     fill: var(--accent2);
 }
 
-.settings-button.current-page, .conversation-button.current-page, .curriculum-button.current-page {
+.settings-button.current-page, .conversation-button.current-page, .curriculum-button.current-page, .start-button.current-page {
     background-color: var(--accent2);
     color: var(--bg-smoke);
 }
 
-.settings-button.current-page svg path, .conversation-button.current-page svg path, .curriculum-button.current-page svg path{ 
+.settings-button.current-page svg path, .conversation-button.current-page svg path, .curriculum-button.current-page svg path, .start-button.current-page svg path{ 
     fill: var(--bg-smoke);
 }
   
@@ -401,4 +401,17 @@ body {
 .Settings input, .Settings select {
     width: 50%; 
     margin: 1rem 0 0 0.5rem;
+}
+
+/* START PAGE */
+.Start {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100vh;
+    background-color: var(--bg-white);
+}
+
+.student-instructions, .teacher-instructions { 
+    margin: 1rem; 
 }

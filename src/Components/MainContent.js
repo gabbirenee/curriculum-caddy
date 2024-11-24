@@ -3,11 +3,17 @@ import { Routes, Route } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
 import Settings from './Settings';
 import Curriculum from './Curriculum';
+import Start from './Start';
 
 function MainContent ({prog_lang, subject, grade_level, student_name, curriculum, setProgLang, setSubject, setGradeLevel, setStudentName, setCurriculum, user_role, setUserRole}) {
   return (
     <div className="main-content">
         <Routes>
+          <Route 
+              exact 
+              path="/start" 
+              element={<Start user_role={user_role}/>} 
+            />
             <Route 
               exact 
               path="/settings" 

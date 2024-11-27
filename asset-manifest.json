@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/curriculum-caddy/static/css/main.04c7cbfc.css",
+    "main.js": "/curriculum-caddy/static/js/main.83634cae.js",
+    "static/js/453.68693753.chunk.js": "/curriculum-caddy/static/js/453.68693753.chunk.js",
+    "index.html": "/curriculum-caddy/index.html",
+    "main.04c7cbfc.css.map": "/curriculum-caddy/static/css/main.04c7cbfc.css.map",
+    "main.83634cae.js.map": "/curriculum-caddy/static/js/main.83634cae.js.map",
+    "453.68693753.chunk.js.map": "/curriculum-caddy/static/js/453.68693753.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.04c7cbfc.css",
+    "static/js/main.83634cae.js"
+  ]
+}

@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
+import  {Tooltip} from 'react-tooltip';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import pdfToText from 'react-pdftotext';
 import base from '../base';
@@ -230,7 +231,12 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
   return (
     <div className="DocumentDetails">
       <div className="details-section">
-        <h1>Document Details</h1>
+        <h1 className='inline-header'>Document Details</h1>
+        <svg className="info" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512" data-tooltip-id="tt_doc_details" data-tooltip-content="To add new curriculum details for the tutor to use, either fill in the details below or upload a document that AI will use to fill in the below information.">
+          {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
+          <path className='info-icon' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+        </svg>
+        <Tooltip id="tt_doc_details"/>
         <div className="file-upload-container">
           <input type="file" accept=".pdf" ref={inputRef} onChange={(e) => onFileLoad(e)} />
         </div>
@@ -243,6 +249,11 @@ function DocumentDetails ({subject, grade_level, curriculum, setCurriculum, sele
           />
           <div />
           <h4 className="inline-header">Document Status</h4>
+          <svg className="info" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512" data-tooltip-id="tt_doc_status" data-tooltip-content='Documents with a status of "Not Started" will not be passed to the AI tutor.'>
+            {/* Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc */}
+            <path className='info-icon' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+          </svg>
+          <Tooltip id="tt_doc_status"/>
           <select value={docStatus} onChange={(e)=> setDocStatus(e.target.value)}>
             <option value="not-started">Not Started</option>
             <option value="in-progress">In Progress</option>

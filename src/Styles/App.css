@@ -221,6 +221,15 @@ body {
     margin: 1rem;
 }
 
+.info { 
+    margin: 0 0 0 0.5rem; 
+    vertical-align: middle; 
+}
+
+.info-icon {
+    fill: #989898; 
+}
+
 /* CURRICULUM STYLINGS */
 .Curriculum {
     display: flex;

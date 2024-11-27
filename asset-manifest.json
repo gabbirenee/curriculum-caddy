@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/curriculum-caddy/static/css/main.04c7cbfc.css",
-    "main.js": "/curriculum-caddy/static/js/main.83634cae.js",
-    "static/js/453.68693753.chunk.js": "/curriculum-caddy/static/js/453.68693753.chunk.js",
-    "index.html": "/curriculum-caddy/index.html",
-    "main.04c7cbfc.css.map": "/curriculum-caddy/static/css/main.04c7cbfc.css.map",
-    "main.83634cae.js.map": "/curriculum-caddy/static/js/main.83634cae.js.map",
-    "453.68693753.chunk.js.map": "/curriculum-caddy/static/js/453.68693753.chunk.js.map"
+    "main.css": "https://gabbirenee.github.io/curriculum-caddy/static/css/main.04c7cbfc.css",
+    "main.js": "https://gabbirenee.github.io/curriculum-caddy/static/js/main.0a445698.js",
+    "static/js/453.68693753.chunk.js": "https://gabbirenee.github.io/curriculum-caddy/static/js/453.68693753.chunk.js",
+    "index.html": "https://gabbirenee.github.io/curriculum-caddy/index.html",
+    "main.04c7cbfc.css.map": "https://gabbirenee.github.io/curriculum-caddy/static/css/main.04c7cbfc.css.map",
+    "main.0a445698.js.map": "https://gabbirenee.github.io/curriculum-caddy/static/js/main.0a445698.js.map",
+    "453.68693753.chunk.js.map": "https://gabbirenee.github.io/curriculum-caddy/static/js/453.68693753.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.04c7cbfc.css",
-    "static/js/main.83634cae.js"
+    "static/js/main.0a445698.js"
   ]
 }

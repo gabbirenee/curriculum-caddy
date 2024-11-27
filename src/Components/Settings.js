@@ -10,12 +10,12 @@ function Settings ({prog_lang, subject, grade_level, student_name, curriculum, s
         <h4 className="inline-header">Name</h4>
         <input
           value={student_name}
-          onChange={(e)=> setStudentName(e.target.value)}
+          onChange={(e)=> {setStudentName(e.target.value); localStorage.setItem('student_name', e.target.value);}}
           placeholder="Name"
         />
         <div />
         <h4 className="inline-header">User Role</h4>
-        <select value={user_role} onChange={(e)=> setUserRole(e.target.value)}>
+        <select value={user_role} onChange={(e)=> {setUserRole(e.target.value); localStorage.setItem('user_role', e.target.value);}}>
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
         </select>
@@ -25,12 +25,12 @@ function Settings ({prog_lang, subject, grade_level, student_name, curriculum, s
         <h4 className="inline-header">Subject</h4>
         <input
           value={subject}
-          onChange={(e)=> setSubject(e.target.value)}
+          onChange={(e)=> {setSubject(e.target.value); localStorage.setItem('subject', e.target.value);}}
           placeholder="Subject"
         />
         <div />
         <h4 className="inline-header">Grade Level</h4>
-        <select value={grade_level} onChange={(e)=> setGradeLevel(e.target.value)}>
+        <select value={grade_level} onChange={(e)=> {setGradeLevel(e.target.value); localStorage.setItem('grade_level', e.target.value);}}>
           <option value="elementary school">Elementary School</option>
           <option value="middle school">Middle School</option>
           <option value="high school">High School</option>
@@ -40,7 +40,7 @@ function Settings ({prog_lang, subject, grade_level, student_name, curriculum, s
         <h4 className="inline-header">Preferred Programming Language</h4>
         <input
           value={prog_lang}
-          onChange={(e)=> setProgLang(e.target.value)}
+          onChange={(e)=> {setProgLang(e.target.value); localStorage.setItem('prog_lang', e.target.value);}}
           placeholder="Preferred Programming Language"
         />
         <div />

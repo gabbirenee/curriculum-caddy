@@ -8,19 +8,19 @@ import { ref, onValue, get } from "firebase/database";
 
 function App () {
     // the programming language that will be used in bot responses
-    const [prog_lang, setProgLang] = useState('python');
+    const [prog_lang, setProgLang] = useState(localStorage.getItem('prog_lang'));
 
     // the subject that is being focused on for the tutoring session
-    const [subject, setSubject] = useState('computer science');
+    const [subject, setSubject] = useState(localStorage.getItem('subject'));
   
     // the grade level/range of the classroom
-    const [grade_level, setGradeLevel] = useState('middle school');
+    const [grade_level, setGradeLevel] = useState(localStorage.getItem('grade_level'));
   
     // the name of the learner
-    const [student_name, setStudentName] = useState('Gabbi');
+    const [student_name, setStudentName] = useState(localStorage.getItem('student_name'));
 
     // the role of the user: teacher vs. student
-    const [user_role, setUserRole] = useState('teacher'); 
+    const [user_role, setUserRole] = useState(localStorage.getItem('user_role')); 
 
     // the curriculum info that the teacher has entered
     const [curriculum, setCurriculum] = useState([]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from 'react-tooltip'
 
-function Settings ({prog_lang, subject, grade_level, student_name, curriculum, setProgLang, setSubject, setGradeLevel, setStudentName, setCurriculum, user_role, setUserRole }) {
+function Settings ({prog_lang, subject, grade_level, student_name,setProgLang, setSubject, setGradeLevel, setStudentName, user_role, setUserRole }) {
 
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CurriculumList ({curriculum, selectedData, setSelectedData}) {
+function CurriculumList ({curriculum, setSelectedData}) {
   const handleSelect = (e) => {
     // get the data for the curriculum item selected
     var newData = curriculum.find(item => parseInt(item.id) === parseInt(e.target.dataset.key));

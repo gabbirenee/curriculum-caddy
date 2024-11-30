@@ -4,23 +4,53 @@ import ToolBar from './ToolBar.js';
 import {BrowserRouter} from 'react-router-dom';
 import MainContent from './MainContent.js';
 import base from '../base';
-import { ref, onValue, get } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 
 function App () {
     // the programming language that will be used in bot responses
-    const [prog_lang, setProgLang] = useState(localStorage.getItem('prog_lang'));
+    const [prog_lang, setProgLang] = useState(() => {
+      if ("prog_lang" in localStorage) {
+        return localStorage.getItem('prog_lang');
+      } else {
+        return 'python';
+      }
+    });
 
     // the subject that is being focused on for the tutoring session
-    const [subject, setSubject] = useState(localStorage.getItem('subject'));
+    const [subject, setSubject] = useState(() => {
+      if ("subject" in localStorage) {
+        return localStorage.getItem('subject');
+      } else {
+        return 'computer science';
+      }
+    });
   
     // the grade level/range of the classroom
-    const [grade_level, setGradeLevel] = useState(localStorage.getItem('grade_level'));
+    const [grade_level, setGradeLevel] = useState(() => {
+      if ("grade_level" in localStorage) {
+        return localStorage.getItem('grade_level');
+      } else {
+        return 'middle school';
+      }
+    });
   
     // the name of the learner
-    const [student_name, setStudentName] = useState(localStorage.getItem('student_name'));
+    const [student_name, setStudentName] = useState(() => {
+      if ("student_name" in localStorage) {
+        return localStorage.getItem('student_name');
+      } else {
+        return 'Teacher';
+      }
+    });
 
     // the role of the user: teacher vs. student
-    const [user_role, setUserRole] = useState(localStorage.getItem('user_role')); 
+    const [user_role, setUserRole] = useState(() => {
+      if ("user_role" in localStorage) {
+        return localStorage.getItem('user_role');
+      } else {
+        return 'teacher';
+      }
+    });
 
     // the curriculum info that the teacher has entered
     const [curriculum, setCurriculum] = useState([]);

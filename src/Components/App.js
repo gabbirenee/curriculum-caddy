@@ -33,15 +33,6 @@ function App () {
         return 'middle school';
       }
     });
-  
-    // the name of the learner
-    const [student_name, setStudentName] = useState(() => {
-      if ("student_name" in localStorage) {
-        return localStorage.getItem('student_name');
-      } else {
-        return 'Teacher';
-      }
-    });
 
     // the role of the user: teacher vs. student
     const [user_role, setUserRole] = useState(() => {
@@ -49,6 +40,20 @@ function App () {
         return localStorage.getItem('user_role');
       } else {
         return 'teacher';
+      }
+    });
+
+    // the name of the learner
+    const [student_name, setStudentName] = useState(() => {
+      if ("student_name" in localStorage) {
+        return localStorage.getItem('student_name');
+      } else {
+        if (user_role === 'student') {
+          return 'Student';
+        }
+        else {
+          return 'Teacher';
+        }
       }
     });
 

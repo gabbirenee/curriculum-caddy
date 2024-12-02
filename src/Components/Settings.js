@@ -16,7 +16,22 @@ function Settings ({prog_lang, subject, grade_level, student_name,setProgLang, s
         />
         <div />
         <h4 className="inline-header">User Role</h4>
-        <select value={user_role} onChange={(e)=> {setUserRole(e.target.value); localStorage.setItem('user_role', e.target.value);}}>
+        <select value={user_role} onChange={
+          (e)=> {
+            setUserRole(e.target.value); 
+            localStorage.setItem('user_role', e.target.value);
+            if ("student_name" in localStorage) {
+              return setStudentName(localStorage.getItem('student_name'));
+            } else {
+              if (user_role === 'student') {
+                return setStudentName('Student');
+              }
+              else {
+                return setStudentName('Teacher');
+              }
+            }
+          }
+        }>
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
         </select>

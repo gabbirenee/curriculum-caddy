@@ -6,7 +6,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 function ChatWindow({prog_lang, grade_level, subject, student_name, curriculum, user_role}) {
   // generative AI model that will be used
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
   // where the actual conversation text will be stored
   const [messages, setMessages] = useState([
